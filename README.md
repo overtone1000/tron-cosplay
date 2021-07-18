@@ -28,3 +28,4 @@ curl -X POST $HOOK
 ```
 
 Get it running with `systemctl start monitor`
+Troubleshoot with `cat /var/log/motion/motion.log`
