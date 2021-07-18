@@ -15,10 +15,10 @@ framerate 60
 width 1920
 height 1040
 stream_quality 25
-on_event_end /home/pi/print_done.sh
+on_event_end bash /home/pi/scripts/print_done.sh
 ```
 
-The `/home/pi/print_done.sh` file must be placed. The script is very simple:
+The `/home/pi/scripts/print_done.sh` file must be placed. The script is very simple:
 ```
 #!/bin/bash
 IFTTT_KEY="YOUR_KEY"
