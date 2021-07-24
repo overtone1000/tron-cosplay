@@ -25,7 +25,7 @@ The `/home/pi/scripts/print_done.sh` file must be placed. The script is very sim
 IFTTT_KEY="YOUR_KEY"
 ACTION_NAME="YOUR_ACTION_NAME"
 HOOK="https://maker.ifttt.com/trigger/$ACTION_NAME/with/key/$IFTTT_KEY"
-curl -X PsnormalOST $HOOK
+curl -X POST $HOOK
 ```
 
 Get it running with `systemctl start motion`
