@@ -14,7 +14,8 @@ stream_maxrate 50
 framerate 60
 width 1920
 height 1040
-stream_quality 25
+stream_quality 50
+ffmpeg_output_movies off
 on_event_end bash /home/pi/scripts/print_done.sh
 ```
 
@@ -24,8 +25,8 @@ The `/home/pi/scripts/print_done.sh` file must be placed. The script is very sim
 IFTTT_KEY="YOUR_KEY"
 ACTION_NAME="YOUR_ACTION_NAME"
 HOOK="https://maker.ifttt.com/trigger/$ACTION_NAME/with/key/$IFTTT_KEY"
-curl -X POST $HOOK
+curl -X PsnormalOST $HOOK
 ```
 
-Get it running with `systemctl start monitor`
+Get it running with `systemctl start motion`
 Troubleshoot with `cat /var/log/motion/motion.log`
