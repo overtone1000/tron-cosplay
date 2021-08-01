@@ -1,0 +1,18 @@
+#environment variables are in .env file i n this directory and must be loaded per the script
+
+version: '3'
+services:
+  rtsp_simple_server:
+    networks:
+      - host_net #just associate with the host network
+    image: trm_rtsp_simple_server #aler9/rtsp-simple-server
+    #environment:
+    #  - RTSP_PORT="8554"
+    #  - RTSP_PATH="video0"
+    #  - RTSP_PATHS_VIDEO0_RUNONINIT=ffmpeg -f v4l2 -i /dev/video0 -f rtsp rtsp://127.0.0.1:$RTSP_PORT/$RTSP_PATH
+    #  - RTSP_PATHS_VIDEO0_RUNONINITRESTART=yes
+
+networks:
+  host_net:
+    external:
+      name: host
