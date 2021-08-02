@@ -9,7 +9,7 @@ services:
   ffmpeg:
     networks:
       - host_net
-    image: linuxserver/ffmpeg:arm32v7-latest
+    image: trm_ffmpeg
     entrypoint: ffmpeg_entrypoint.sh
 networks:
   host_net:
