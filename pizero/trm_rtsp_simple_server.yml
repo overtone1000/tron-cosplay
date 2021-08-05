@@ -10,7 +10,9 @@ services:
     networks:
       - host_net
     image: trm_ffmpeg
-    entrypoint: ffmpeg_entrypoint.sh
+    devices:
+      - "/dev/video0:/dev/video0"
+
 networks:
   host_net:
     external:
