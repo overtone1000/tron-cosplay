@@ -10,7 +10,6 @@ services:
     networks:
       - host_net
     image: trm_ffmpeg
-    platform: linux/arm/v6 #workaround for raspberry pi zero automatic platform selection
     entrypoint: ffmpeg_entrypoint.sh
 networks:
   host_net:
