@@ -31,3 +31,7 @@ Deploy with
 
 The "devices" tag is currently ignored by stack deploy. Oh no! Have to manually run the containers instead.
 `docker run --network=host --restart="always" -d aler9/rtsp-simple-server && docker run --device="/dev/video0:/dev/video0" --network=host --restart="always" -d trm_ffmpeg`
+
+
+
+In the end, ultimately got this working, but it didn't work with Motion. If this is ever picked up again, check out ZoneMinder. It looks more feature rich than Motion. Web interface, app, looks great!
