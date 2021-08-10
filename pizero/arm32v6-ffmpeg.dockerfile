@@ -4,7 +4,8 @@
 #FROM --platform=linux/arm/v6 debian:latest
 
 FROM debian:latest
-RUN apt-get update
+RUN apt-get update -y
+RUN apt-get upgrade -y
 RUN apt-get install -y ffmpeg
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 COPY ./ffmpeg_entrypoint.sh /ffmpeg_entrypoint.sh
