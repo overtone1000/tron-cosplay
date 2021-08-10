@@ -8,28 +8,40 @@ Build ffmpeg with
 
 ## Build with buildx
 
-Need to create a node. See https://docs.docker.com/buildx/working-with-buildx/#build-multi-platform-images
-Trying new build command due to linux/arm/v6 image problems...
-`docker buildx build .  -t "trm_ffmpeg" -f "arm32v6-ffmpeg.dockerfile" --platform="linux/arm/v6"`
+### Local Environment Variables
+```
+LOCAL_IP=192.168.1.138exit
+LOCAL_PORT=5001
+```
 
-Could push to pizero with the following, but it's too slow!
-`docker save trm_ffmpeg | ssh -C pi@pizero docker load`
-
-Instead, create a local private docker repository
-`docker run -d -p 5000:5000 --restart always --name registry registry:2`
-
-Push to it on the local context
-`docker tag trm_ffmpeg localhost:5000/trm_ffmpeg && docker push localhost:5000/trm_ffmpeg`
+### Local Repo
+Create a local private docker repository
+`docker run -d -p $LOCAL_PORT:5000 --restart always --name registry registry:latest`
 
 Need to allow insecure (HTTP) repository use on the pizero. SSH into pizero and edit `/etc/docker/daemon.json` to include:
 ```
 {
-  "insecure-registries" : ["IP_OF_PRIVATE_REPOSITORY_MACHINE:5000"]
+  "insecure-registries" : ["$LOCAL_IP:$LOCAL_PORT"]
 }
 ```
+Don't forget to restart Docker!
+`sudo systemctl restart docker`
+
+### Buildx Emulation Node
+Need to create an emulation node. See https://docs.docker.com/buildx/working-with-buildx/#build-multi-platform-images
+Install emulation with
+`docker run --privileged --rm tonistiigi/binfmt --install all`
+
+### Building
+
+Build with
+`sudo docker buildx build .  -t "localhost:$LOCAL_PORT/trm_ffmpeg:latest" -f "arm32v6-ffmpeg.dockerfile" --platform="linux/arm/v6" --push`
+
+Push to it on the local repository
+`docker push localhost:$LOCAL_PORT/trm_ffmpeg`
 
 And pull from it on the remote context
-`docker pull 192.168.1.181:5000/trm_ffmpeg && docker tag 192.168.1.181:5000/trm_ffmpeg trm_ffmpeg`
+`docker pull $LOCAL_IP:$LOCAL_PORT/trm_ffmpeg && docker tag $LOCAL_IP:$LOCAL_PORT/trm_ffmpeg trm_ffmpeg`
 
 ## Deploy
 
